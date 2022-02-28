@@ -17,7 +17,7 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
     )
     #options.add_argument('--headless')
     #dr = webdriver.Remote('http://chrome:4444/wd/hub', options=options)
-    dr = webdriver.Chrome(r'C:\Users\user\Desktop\chromedriver', options=options)
+    dr = webdriver.Chrome(r'chromedriver', options=options)
     time.sleep(2)
     for acc in accounts:
         dr.get('https://www.instagram.com/accounts/login')
@@ -39,7 +39,7 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
             print(target, acc)
             target = target.replace("https://www.instagram.com/", "")\
                 .replace('https://www.instagram.com/tv/','')\
-                .replace('/?utm_medium=copy_link', '')
+                .replace('/?utm_medium=copy_link', '').replace('p/','')
             target = target.replace("/", "")
             try:
                 parametr = parametr.split(separator_target)[1]
