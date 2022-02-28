@@ -82,6 +82,9 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
         el.click()
 targets = open('targets.txt','r')
 targets = targets.read().split(',')
+for i in range(len(targets)):
+    if targets[i] == '':
+        targets.pop(i)
 accounts = open('accounts.txt','r')
 accounts = accounts.read().split(',')
 print(targets)
