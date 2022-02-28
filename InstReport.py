@@ -1,5 +1,4 @@
 import time
-import loguru
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -17,7 +16,6 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
         "application/signed-exchange;v=b3;q=0.9"
     )
     #options.add_argument('--headless')
-    loguru.logger.debug('ay')
     #dr = webdriver.Remote('http://chrome:4444/wd/hub', options=options)
     dr = webdriver.Chrome(r'C:\Users\user\Desktop\chromedriver', options=options)
     time.sleep(2)
