@@ -24,15 +24,17 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
     for acc in accounts:
         dr.get('https://www.instagram.com/accounts/login')
         time.sleep(random.randint(random_from, random_to))
-        el = dr.find_element(value='html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[1]/div/label/input', by=By.XPATH)
+        el = dr.find_element(value='username', by=By.NAME)
         el.send_keys(acc.split(separator_acc)[0])
         time.sleep(random.randint(random_from, random_to))
-        el = dr.find_element(value='html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[2]/div/label/input', by=By.XPATH)
+        el = dr.find_element(value='password', by=By.NAME)
         el.send_keys(acc.split(separator_acc)[1])
+        time.sleep(2)
         try:
             el = dr.find_element(value='html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[3]/button/div', by=By.XPATH)
             el.click()
-        except:
+        except Exception as e:
+            print(e)
             continue
         for target in targets:
             print(target, acc)
@@ -68,6 +70,15 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
             except Exception as e:
                 print(e)
                 continue
+        time.sleep(random.randint(random_from, random_to))
+        el = dr.find_element(value='html/body/div[6]/div/div/div/div/div/div/div[4]/button', by=By.XPATH)
+        el.click()
+        time.sleep(random.randint(random_from, random_to))
+        el = dr.find_element(value='/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[6]/span', by=By.XPATH)
+        el.click()
+        time.sleep(random.randint(random_from, random_to))
+        el = dr.find_element(value='/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[6]/div[2]/div[2]/div[2]/div[2]/div/div/div/div/div/div', by=By.XPATH)
+        el.click()
 targets = open('targets.txt','r')
 targets = targets.read().split(',')
 accounts = open('accounts.txt','r')
