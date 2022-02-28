@@ -34,8 +34,9 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
             el = dr.find_element(value='html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[3]/button/div', by=By.XPATH)
             el.click()
         except Exception as e:
+            el = dr.find_element(value='html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button', by=By.XPATH)
+            el.click()
             print(e)
-            continue
         for target in targets:
             print(target, acc)
             target = target.replace("https://www.instagram.com/", "")
