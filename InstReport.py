@@ -71,9 +71,7 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
             except Exception as e:
                 print(e)
                 continue
-        time.sleep(random.randint(random_from, random_to))
-        el = dr.find_element(value='html/body/div[6]/div/div/div/div/div/div/div[4]/button', by=By.XPATH)
-        el.click()
+        dr.get(f'https://www.instagram.com/{target}')
         time.sleep(random.randint(random_from, random_to))
         el = dr.find_element(value='/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[6]/span', by=By.XPATH)
         el.click()
@@ -86,6 +84,6 @@ for i in range(len(targets)):
     if targets[i] == '':
         targets.pop(i)
 accounts = open('accounts.txt','r')
-accounts = accounts.read().split(',')
+accounts = accounts.read().split('\n')
 print(targets)
 report(targets,accounts)
