@@ -35,6 +35,7 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
         except:
             continue
         for target in targets:
+            print(target, acc)
             target = target.replace("https://www.instagram.com/", "")
             target = target.replace("/", "")
             try:
@@ -42,12 +43,10 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
             except:
                 parametr = parametr
             try:
+                time.sleep(random.randint(random_from, random_to))
                 dr.get(f'https://www.instagram.com/{target}')
                 time.sleep(random.randint(random_from, random_to))
-                el = dr.find_element(value='html/body/div[1]/section/main/div/div/div/div/button', by=By.XPATH)
-                el.click()
-                time.sleep(random.randint(random_from, random_to))
-                el = dr.find_element(value='html/body/div[1]/section/main/div/header/section/div[1]/div/button', by=By.XPATH)
+                el = dr.find_element(value='wpO6b  ', by=By.CLASS_NAME)
                 el.click()
                 time.sleep(random.randint(random_from, random_to))
                 el = dr.find_element(value='html/body/div[6]/div/div/div/div/button[3]', by=By.XPATH)
@@ -59,17 +58,15 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
                 el = dr.find_element(value='html/body/div[6]/div/div/div/div[2]/div/div/div/div[3]/button[1]/div/div[1]', by=By.XPATH)
                 el.click()
                 time.sleep(random.randint(random_from, random_to))
-                el = dr.find_element(value='html/body/div[6]/div/div/div/div[2]/div/div/div/div[3]/button[1]/div/div[1]', by=By.XPATH)
-                el.click()
-                time.sleep(random.randint(random_from, random_to))
                 if parametr == 'v':
                     el = dr.find_element(value='html/body/div[6]/div/div/div/div[2]/div/div/div/div[3]/button[6]/div/div[1]', by=By.XPATH)
-                if parametr == 'n':
+                elif parametr == 'n':
                     el = dr.find_element(value='html/body/div[6]/div/div/div/div[2]/div/div/div/div[3]/button[7]/div/div[1]', by=By.XPATH)
-                if parametr == 'l':
-                    el = dr.find_element(value='html/body/div[6]/div/div/div/div[2]/div/div/div/div[3]/button[11]/div', by=By.XPATH)
+                elif parametr == 'l':
+                    el = dr.find_element(value='html/body/div[6]/div/div/div/div[2]/div/div/div/div[3]/button[11]/div/div[1]', by=By.XPATH)
                 el.click()
-            except:
+            except Exception as e:
+                print(e)
                 continue
 targets = open('targets.txt','r')
 targets = targets.read().split(',')
