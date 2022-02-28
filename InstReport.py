@@ -37,7 +37,9 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
             print(e)
         for target in targets:
             print(target, acc)
-            target = target.replace("https://www.instagram.com/", "")
+            target = target.replace("https://www.instagram.com/", "")\
+                .replace('https://www.instagram.com/tv/','')\
+                .replace('/?utm_medium=copy_link', '')
             target = target.replace("/", "")
             try:
                 parametr = parametr.split(separator_target)[1]
