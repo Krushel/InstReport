@@ -17,7 +17,7 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
     )
     #options.add_argument('--headless')
     #dr = webdriver.Remote('http://chrome:4444/wd/hub', options=options)
-    dr = webdriver.Chrome(r'chromedriver', options=options)
+    dr = webdriver.Chrome(r'./chromedriver', options=options)
     time.sleep(2)
     for acc in accounts:
         dr.get('https://www.instagram.com/accounts/login')
