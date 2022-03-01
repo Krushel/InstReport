@@ -1,0 +1,1 @@
+docker run -ti -v $(pwd):/app fufelok/instbot python InstReport.py

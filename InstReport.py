@@ -11,13 +11,15 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option('useAutomationExtension', False)
+    options.add_argument("--no-sandbox")
+    options.add_argument('--headless')
     options.add_argument(
         "accept_contents=text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,"
         "application/signed-exchange;v=b3;q=0.9"
     )
     #options.add_argument('--headless')
     #dr = webdriver.Remote('http://chrome:4444/wd/hub', options=options)
-    dr = webdriver.Chrome(r'./chromedriver', options=options)
+    dr = webdriver.Chrome(r'chromedriver', options=options)
     time.sleep(2)
     for acc in accounts:
         dr.get('https://www.instagram.com/accounts/login')
@@ -87,3 +89,4 @@ accounts = open('accounts.txt','r')
 accounts = accounts.read().split('\n')
 print(targets)
 report(targets,accounts)
+print("success")
