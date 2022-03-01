@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import random
 
-def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, random_to=10, separator_acc=':', separator_target=':'):
+def report(targets: list, accounts:list, parametr:str = 'l', random_from=8, random_to=10, separator_acc=':', separator_target=':'):
     options = webdriver.ChromeOptions()
     options.add_argument("--disable-blink-features")
     options.add_argument("--disable-blink-features=AutomationControlled")
@@ -17,10 +17,16 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
     )
     #options.add_argument('--headless')
     #dr = webdriver.Remote('http://chrome:4444/wd/hub', options=options)
-    dr = webdriver.Chrome(r'./chromedriver', options=options)
+    dr = webdriver.Chrome('./chromedriver.exe', options=options)
     time.sleep(2)
     for acc in accounts:
         dr.get('https://www.instagram.com/accounts/login')
+        try:
+            time.sleep(random.randint(random_from, random_to))
+            el = dr.find_element(value='html/body/div[4]/div/div/button[2]', by=By.XPATH)
+            el.click()
+        except:
+            pass
         time.sleep(random.randint(random_from, random_to))
         el = dr.find_element(value='username', by=By.NAME)
         el.send_keys(acc.split(separator_acc)[0])
@@ -35,10 +41,11 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
             el = dr.find_element(value='html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button', by=By.XPATH)
             el.click()
             print(e)
+        time.sleep(15)
         for target in targets:
             print(target, acc)
             target = target.replace("https://www.instagram.com/", "")\
-                .replace('https://www.instagram.com/tv/','')\
+                .replace('tv/','')\
                 .replace('?utm_medium=copy_link', '').replace('p/','')
             target = target.replace("/", "")
             try:
@@ -79,11 +86,12 @@ def report(targets:list, accounts:list, parametr:str = 'l', random_from=8, rando
         el = dr.find_element(value='/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[6]/div[2]/div[2]/div[2]/div[2]/div/div/div/div/div/div', by=By.XPATH)
         el.click()
 targets = open('targets.txt','r')
-targets = targets.read().split(',')
+targets = targets.read().split('\n')
+accounts = open('accounts.txt','r')
+accounts = accounts.read().split(',')
 for i in range(len(targets)):
     if targets[i] == '':
         targets.pop(i)
-accounts = open('accounts.txt','r')
-accounts = accounts.read().split('\n')
+
 print(targets)
 report(targets,accounts)
