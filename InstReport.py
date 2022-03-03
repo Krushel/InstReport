@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import random
 
-def report(targets: list, accounts:list, parametr:str = 'l', random_from=8, random_to=10, separator_acc=':', separator_target=':'):
+def report(targets: list, accounts:list, parametr:str = 'l', random_from=8, random_to=10, separator_acc=':', separator_target=':', sub=False, unsub=False):
     options = webdriver.ChromeOptions()
     options.add_argument("--disable-blink-features")
     options.add_argument("--disable-blink-features=AutomationControlled")
@@ -55,6 +55,17 @@ def report(targets: list, accounts:list, parametr:str = 'l', random_from=8, rand
             try:
                 time.sleep(random.randint(random_from, random_to))
                 dr.get(f'https://www.instagram.com/{target}')
+                if sub:
+                    time.sleep(random.randint(random_from, random_to))
+                    el = dr.find_element(value='html/body/div[1]/section/main/div/header/section/div[1]/div[1]/div/div/div/span/span[1]/button/div', by=By.XPATH)
+                    el.click()
+                if unsub:
+                    time.sleep(random.randint(random_from, random_to))
+                    el = dr.find_element(value='html/body/div[1]/section/main/div/header/section/div[1]/div[1]/div/div[2]/div/span/span[1]/button/div/div', by=By.XPATH)
+                    el.click()
+                    time.sleep(random.randint(random_from, random_to))
+                    el = dr.find_element(value='html/body/div[6]/div/div/div/div[3]/button[1]', by=By.XPATH)
+                    el.click()
                 time.sleep(random.randint(random_from, random_to))
                 el = dr.find_element(value='wpO6b  ', by=By.CLASS_NAME)
                 el.click()
@@ -85,6 +96,7 @@ def report(targets: list, accounts:list, parametr:str = 'l', random_from=8, rand
         time.sleep(random.randint(random_from, random_to))
         el = dr.find_element(value='/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[6]/div[2]/div[2]/div[2]/div[2]/div/div/div/div/div/div', by=By.XPATH)
         el.click()
+
 targets = open('targets.txt','r')
 targets = targets.read().split('\n')
 accounts = open('accounts.txt','r')
@@ -92,6 +104,12 @@ accounts = accounts.read().split(',')
 for i in range(len(targets)):
     if targets[i] == '':
         targets.pop(i)
-
 print(targets)
-report(targets,accounts)
+if targets[0] == 'sub':
+    targets.pop(0)
+    report(targets, accounts, sub=True)
+elif targets[0] == 'unsub':
+    targets.pop(0)
+    report(targets,accounts, unsub=True)
+else:
+    report(targets,accounts)
